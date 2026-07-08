@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: qlms-api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: lb://qlms-auth-service
+          predicates:
+            - Path=/api/auth/**
+
+        - id: inventory-service
+          uri: lb://qlms-inventory-service
+          predicates:
+            - Path=/api/inventory/**
+
+        - id: shipment-service
+          uri: lb://qlms-shipment-service
+          predicates:
+            - Path=/api/shipments/**
+
+        - id: request-service
+          uri: lb://qlms-request-service
+          predicates:
+            - Path=/api/requests/**
+
+        - id: notification-service
+          uri: lb://qlms-notification-service
+          predicates:
+            - Path=/api/notifications/**
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
