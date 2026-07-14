@@ -1,6 +1,4 @@
 spring:
-  application:
-    name: qlms-api-gateway
   cloud:
     gateway:
       routes:
@@ -28,19 +26,3 @@ spring:
           uri: lb://qlms-notification-service
           predicates:
             - Path=/api/notifications/**
-
-server:
-  port: 8080
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://qlms-eureka:8761/eureka/
-  instance:
-    prefer-ip-address: true
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
